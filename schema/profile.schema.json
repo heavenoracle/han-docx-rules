@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/heavenoracle/han-docx-rules/schema/profile.schema.json",
+  "title": "han-docx-lint profile",
+  "type": "object",
+  "required": ["version"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_paragraph_chars": { "type": "integer", "minimum": 1 },
+        "require_references": { "type": "boolean" }
+      }
+    },
+    "disabled_rules": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string" }
+    },
+    "severity_overrides": {
+      "type": "object",
+      "additionalProperties": { "enum": ["error", "warning", "info"] }
+    },
+    "pattern_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "pattern", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "pattern": { "type": "string", "minLength": 1 },
+          "flags": { "type": "string", "pattern": "^[im]*$" },
+          "severity": { "enum": ["error", "warning", "info"] },
+          "message": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}
+

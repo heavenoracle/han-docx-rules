@@ -1,0 +1,21 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python tools/validate_profiles.py
+      - run: python -m json.tool schema/profile.schema.json > /dev/null
+      - run: python -m pip install git+https://github.com/heavenoracle/han-docx-lint.git@main
+      - run: |
+          for profile in profiles/*.json; do
+            han-docx-lint missing.docx --config "$profile" --format json > /dev/null || test $? -eq 2
+          done

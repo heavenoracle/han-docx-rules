@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "settings": {
+    "max_paragraph_chars": 450,
+    "require_references": true
+  },
+  "disabled_rules": [],
+  "severity_overrides": {
+    "placeholder-text": "error",
+    "missing-references": "error"
+  },
+  "pattern_rules": [
+    {
+      "id": "informal-first-person-opinion",
+      "pattern": "我觉得|我感觉",
+      "severity": "info",
+      "message": "Potentially informal first-person opinion wording found."
+    },
+    {
+      "id": "informal-intensifier",
+      "pattern": "非常非常|超级",
+      "severity": "info",
+      "message": "Potentially informal intensifier found."
+    }
+  ]
+}
+

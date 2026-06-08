@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "settings": {
+    "max_paragraph_chars": 600,
+    "require_references": true
+  },
+  "disabled_rules": [],
+  "severity_overrides": {
+    "placeholder-text": "error",
+    "missing-references": "error"
+  },
+  "pattern_rules": [
+    {
+      "id": "unresolved-bracket-placeholder",
+      "pattern": "\\[(?:姓名|学号|课程名|标题|在此填写)\\]",
+      "severity": "error",
+      "message": "An unresolved bracketed coursework placeholder was found."
+    }
+  ]
+}
+

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "settings": {
+    "max_paragraph_chars": 600,
+    "require_references": true
+  },
+  "disabled_rules": [],
+  "severity_overrides": {
+    "placeholder-text": "error"
+  },
+  "pattern_rules": []
+}
+
