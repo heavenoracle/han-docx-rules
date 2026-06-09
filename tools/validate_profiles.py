@@ -32,8 +32,16 @@ def validate(path: Path) -> list[str]:
     settings = data.get("settings", {})
     if not isinstance(settings, dict):
         errors.append("settings must be an object")
-    elif not isinstance(settings.get("max_paragraph_chars", 600), int):
-        errors.append("max_paragraph_chars must be an integer")
+    else:
+        max_chars = settings.get("max_paragraph_chars", 600)
+        if (
+            not isinstance(max_chars, int)
+            or isinstance(max_chars, bool)
+            or max_chars < 1
+        ):
+            errors.append("max_paragraph_chars must be a positive integer")
+        if not isinstance(settings.get("require_references", True), bool):
+            errors.append("require_references must be a boolean")
     disabled = data.get("disabled_rules", [])
     if not isinstance(disabled, list) or set(disabled) - BUILTIN_RULES:
         errors.append("disabled_rules contains an unknown rule")
@@ -56,11 +64,29 @@ def validate(path: Path) -> list[str]:
         if rule.get("severity", "warning") not in SEVERITIES:
             errors.append(f"pattern_rules[{index}] has an invalid severity")
         try:
-            re.compile(rule.get("pattern", ""))
+            flags_text = rule.get("flags", "")
+            if not isinstance(flags_text, str) or any(
+                flag not in "im" for flag in flags_text
+            ):
+                errors.append(f"pattern_rules[{index}] has invalid flags")
+                flags_text = ""
+            flags = (re.I if "i" in flags_text else 0) | (
+                re.M if "m" in flags_text else 0
+            )
+            re.compile(rule.get("pattern", ""), flags)
         except (re.error, TypeError) as exc:
             errors.append(f"pattern_rules[{index}] has an invalid pattern: {exc}")
         if not isinstance(rule.get("message"), str) or not rule.get("message"):
             errors.append(f"pattern_rules[{index}] must have a message")
+        if "rationale" in rule and (
+            not isinstance(rule["rationale"], str) or not rule["rationale"]
+        ):
+            errors.append(f"pattern_rules[{index}] has an invalid rationale")
+        false_positives = rule.get("false_positives", [])
+        if not isinstance(false_positives, list) or not all(
+            isinstance(item, str) and item for item in false_positives
+        ):
+            errors.append(f"pattern_rules[{index}] has invalid false_positives")
     return errors
 
 
@@ -79,4 +105,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

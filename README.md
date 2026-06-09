@@ -45,7 +45,10 @@ compliance with any university, journal, or standards body.
 - Custom pattern rules must document intent and likely false positives.
 - Every profile must pass `python tools/validate_profiles.py`.
 
+Profiles should be reviewed like code before use, especially when they are
+changed by an untrusted pull request. Custom regular expressions are executed
+against document text by the checking engine.
+
 ## License
 
 MIT
-

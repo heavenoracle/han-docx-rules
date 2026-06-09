@@ -14,14 +14,24 @@
       "id": "informal-first-person-opinion",
       "pattern": "我觉得|我感觉",
       "severity": "info",
-      "message": "Potentially informal first-person opinion wording found."
+      "message": "Potentially informal first-person opinion wording found.",
+      "rationale": "Unqualified first-person opinion phrases may be too informal for some academic contexts.",
+      "false_positives": [
+        "Quoted interviews",
+        "First-person qualitative research",
+        "Linguistic analysis of the phrase"
+      ]
     },
     {
       "id": "informal-intensifier",
       "pattern": "非常非常|超级",
       "severity": "info",
-      "message": "Potentially informal intensifier found."
+      "message": "Potentially informal intensifier found.",
+      "rationale": "Colloquial intensifiers may weaken formal academic claims.",
+      "false_positives": [
+        "Quoted source material",
+        "Linguistic analysis of colloquial wording"
+      ]
     }
   ]
 }
-

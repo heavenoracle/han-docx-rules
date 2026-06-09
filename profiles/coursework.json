@@ -14,8 +14,11 @@
       "id": "unresolved-bracket-placeholder",
       "pattern": "\\[(?:姓名|学号|课程名|标题|在此填写)\\]",
       "severity": "error",
-      "message": "An unresolved bracketed coursework placeholder was found."
+      "message": "An unresolved bracketed coursework placeholder was found.",
+      "rationale": "Bracketed identity and assignment fields are commonly left behind in coursework templates.",
+      "false_positives": [
+        "A quoted template field discussed as part of the document"
+      ]
     }
   ]
 }
-

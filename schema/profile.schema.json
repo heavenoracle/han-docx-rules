@@ -35,10 +35,14 @@
           "pattern": { "type": "string", "minLength": 1 },
           "flags": { "type": "string", "pattern": "^[im]*$" },
           "severity": { "enum": ["error", "warning", "info"] },
-          "message": { "type": "string", "minLength": 1 }
+          "message": { "type": "string", "minLength": 1 },
+          "rationale": { "type": "string", "minLength": 1 },
+          "false_positives": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
         }
       }
     }
   }
 }
-
